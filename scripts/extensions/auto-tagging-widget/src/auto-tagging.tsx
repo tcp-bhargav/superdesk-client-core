@@ -250,6 +250,7 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                         console.log('runAnalysis result:', tags);
                     }
                 }).catch((error) => {
+                    console.log('Error Encountered. Testing.')
                     console.error('Error during analysis. We are in runAnalysis:  ',error);   
 
                     if (this._mounted) {
