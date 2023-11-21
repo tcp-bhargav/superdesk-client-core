@@ -217,21 +217,25 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                     const json_response = res.analysis;
 
                     console.log('runAnalysis getting json_response:', json_response);
-
-                    const tagEntries = [
-                        ...Object.entries(json_response.subject || {}),
-                        ...Object.entries(json_response.organisation || {}),
-                        ...Object.entries(json_response.person || {}),
-                        ...Object.entries(json_response.event || {}),
-                        ...Object.entries(json_response.place || {}),
-                        ...Object.entries(json_response.object || {}),
-                    ];
+                    const resClient = toClientFormat(res.analysis);
+                    console.log('res State:', res);
+                    console.log('resClient State:', resClient);
                     
 
-                    const tags = OrderedMap<string, ITagUi>(tagEntries);
-                    const france = OrderedMap<string, ITagUi>();
+                    // const tagEntries = [
+                    //     ...Object.entries(json_response.subject || {}),
+                    //     ...Object.entries(json_response.organisation || {}),
+                    //     ...Object.entries(json_response.person || {}),
+                    //     ...Object.entries(json_response.event || {}),
+                    //     ...Object.entries(json_response.place || {}),
+                    //     ...Object.entries(json_response.object || {}),
+                    // ];
+                    
 
-                    console.log('France:', france);
+                    // const tags = OrderedMap<string, ITagUi>(tagEntries);
+                    // const france = OrderedMap<string, ITagUi>();
+
+                    // console.log('France:', france);
 
                     
                     
@@ -242,12 +246,12 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
                         this.setState({
                             data: {
                                 original: dataBeforeLoading === 'loading' || dataBeforeLoading === 'not-initialized'
-                                    ? {analysis: OrderedMap<string, ITagUi>(tagEntries)} // initialize empty data
+                                    ? {analysis: OrderedMap<string, ITagUi>()} // initialize empty data
                                     : dataBeforeLoading.original, // use previous data
-                                changes: {analysis: tags},
+                                changes: {analysis: resClient},
                             },
                         });
-                        console.log('runAnalysis result:', tags);
+                        
                     }
                 }).catch((error) => {
                     console.error('Error during analysis. We are in runAnalysis:  ',error);   
