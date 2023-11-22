@@ -190,9 +190,7 @@ export function getAutoTaggingComponent(superdesk: ISuperdesk, label: string) {
     
         runAnalysis() {
             const dataBeforeLoading = this.state.data;
-            console.log(process.env.SEMAPHORE_BASE_URL);
-            console.log(process.env.semaphore_api_key);
-            console.log(process.env.semaphore_token_endpoint);
+            
 
 
             this.setState({data: 'loading'}, () => {
